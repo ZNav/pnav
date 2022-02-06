@@ -1,0 +1,1 @@
+This package isn't much, it contains classes and functions I use often.
