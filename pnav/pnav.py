@@ -10,29 +10,28 @@ import requests
 
 class help:
     def help():
-        print('Hello! Thank you for choosing the Pnav package. Here are a few of the classes and functions you can choose from:\nCharCheck: Class that allows you to look inside a file and see if it has all instances of a item of your choosing.\n\tmessyCheck: this takes a input file and checks it for a-z.\n\tinputOwn: Allows you to input your own array separated by spaces and will search for each item instead of a-z.\ndateCalc: Checks to see how many days away a certain date is, written in year/month/day format.\n\tcheckDate: takes a date written in year/month/day format and returns how far away it is.\ncandyTimer: uses a gui to get user data and create windows pop-ups or command line notifications so you can ration food to last to a certain time.\n\tsetup: this is what runs the project, it takes no inputs.\npalindrome: checks a string to see if it is a palindrome.\n\tisPalindrome: takes a string as a input and returns a boolean on if the string is a palindrome.\nstockScraper: uses beautifulSoup4 to get html data from a webpage and then returns information on a certain stock.\n\tselect: this runs the project and takes no inputs.')
+        print('Hello! Thank you for choosing the Pnav package. Here are a few of the classes and functions you can choose from:\nrandom: contains random functions and projects.\n\tmessyCheck: this takes a input file and checks it for a-z.\n\tinputOwn: Allows you to input your own array separated by spaces and will search for each item instead of a-z.\n\tcheckDate: takes a date written in year/month/day format and returns how far away it is.\n\tisPalindrome: takes a string as a input and returns a boolean on if the string is a palindrome.\ncandyTimer: uses a gui to get user data and create windows pop-ups or command line notifications so you can ration food to last to a certain time.\n\tsetup: this is what runs the project, it takes no inputs.\nstockScraper: uses beautifulSoup4 to get html data from a webpage and then returns information on a certain stock.\n\tselect: this runs the project and takes no inputs.')
 
-class charCheck:
+class random:
     default = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 
     def messyCheck(inpfile):
         global default
-        if(charCheck.default == ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']):
+        if(random.default == ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']):
             inpfile = inpfile.lower()
-        for i in charCheck.default:
+        for i in random.default:
             if i not in inpfile:
                 return "First to fail: "+str(i)
         return 'All items in file.'
 
     def inputOwn():
-        charCheck.default
+        random.default
         default = input('Enter each item you wish to search for, seperated by spaces: ')
         if(default == ''):
             default = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
         else:
             default = default.split(' ')
 
-class dateCalc():
     def checkDate(dateToCheck):
         if(dateToCheck == ''):
             return
@@ -48,6 +47,15 @@ class dateCalc():
         daydif = int(bases[2]) - int(today[2])
         var = round((daydif+monthdif+yeardif),0)
         return str(int(var)) 
+
+    def isPalindrome(stringToCheck):
+        i = len(stringToCheck)
+        i -= 1
+        for x in stringToCheck:
+            if(x != stringToCheck[i]):
+                return False
+            i -= 1
+        return True
 
 
 class candyTimer():
@@ -132,16 +140,6 @@ class candyTimer():
         master.bind('<Return>',guiGetEnter)
         e1.focus()
         master.mainloop()
-
-class palindrome():
-    def isPalindrome(stringToCheck):
-        i = len(stringToCheck)
-        i -= 1
-        for x in stringToCheck:
-            if(x != stringToCheck[i]):
-                return False
-            i -= 1
-        return True
 
 link = 'HELP'
 url = 'https://robinhood.com/stocks/'
