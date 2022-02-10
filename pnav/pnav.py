@@ -7,10 +7,11 @@ from datetime import datetime
 from tkinter import *
 from bs4 import BeautifulSoup
 import requests
+import socket
 
 class help:
     def help():
-        print('Hello! Thank you for choosing the Pnav package. Here are a few of the classes and functions you can choose from:\nrandom: contains random functions and projects.\n\tmessyCheck: this takes a input file and checks it for a-z.\n\tinputOwn: Allows you to input your own array separated by spaces and will search for each item instead of a-z.\n\tcheckDate: takes a date written in year/month/day format and returns how far away it is.\n\tisPalindrome: takes a string as a input and returns a boolean on if the string is a palindrome.\ncandyTimer: uses a gui to get user data and create windows pop-ups or command line notifications so you can ration food to last to a certain time.\n\tsetup: this is what runs the project, it takes no inputs.\nstockScraper: uses beautifulSoup4 to get html data from a webpage and then returns information on a certain stock.\n\tselect: this runs the project and takes no inputs.')
+        print('Hello! Thank you for choosing the Pnav package. Here are a few of the classes and functions you can choose from:\nrandom: contains random functions and projects.\n\tmessyCheck: this takes a input file and checks it for a-z.\n\tinputOwn: Allows you to input your own array separated by spaces and will search for each item instead of a-z.\n\tcheckDate: takes a date written in year/month/day format and returns how far away it is.\n\tisPalindrome: takes a string as a input and returns a boolean on if the string is a palindrome.\n\tinfo: returns information about computer, including time, date, ip address, and computer name.\ncandyTimer: uses a gui to get user data and create windows pop-ups or command line notifications so you can ration food to last to a certain time.\n\tsetup: this is what runs the project, it takes no inputs.\nstockScraper: uses beautifulSoup4 to get html data from a webpage and then returns information on a certain stock.\n\tselect: this runs the project and takes no inputs.')
 
 class random:
     default = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
@@ -56,6 +57,18 @@ class random:
                 return False
             i -= 1
         return True
+
+    def info():
+        now = datetime.now()
+        current_time = now.strftime("%H:%M:%S")
+        current_date = now.strftime('%m/%d/%Y')
+        hostname = socket.gethostname()   
+        IPAddr = socket.gethostbyname(hostname)   
+        time = ('Time: '+str(current_time))
+        date = ('Date: '+str(current_date))
+        ip = ('IP: '+str(IPAddr))
+        hostname = ('Host Name: '+str(hostname))
+        return [time,date,ip,hostname]
 
 
 class candyTimer():
