@@ -97,13 +97,13 @@ class candyTimer():
                 if(nopopup == False):
                     ToastNotifier().show_toast('Candy Time!', 'Enjoy a piece of candy! There are '+str(pieces)+' remaining pieces.', duration = dur)
                 else:
-                    time.wait(dur)
+                    time.sleep(dur)
             else:
                 print('enjoy the final piece of candy at '+current_time+', there are no remaining pieces.')
                 if(nopopup == False):
                     ToastNotifier().show_toast('Candy Time!', 'Enjoy the final piece of candy! There are no remaining pieces.', duration = 10)
                 else:
-                    time.wait(dur)
+                    time.sleep(dur)
 
 
 
