@@ -59,18 +59,18 @@ class random:
             i -= 1
         return True
 
-def info():
-    now = datetime.now()
-    current_time = now.strftime("%H:%M:%S")
-    current_date = now.strftime('%m/%d/%Y')
-    data = subprocess.check_output(['ipconfig','/all']).decode('utf-8').split('\n')
-    time = ('Time. . . . . . . . . . . . . . . : '+str(current_time))
-    date = ('Date. . . . . . . . . . . . . . . : '+str(current_date))
-    ip = data[17].strip()
-    ip = ip.split('(')[0]
-    hostname = data[3].strip()
-    dictInfo = {'time': time,'date': date,'ip': ip,'hostname': hostname, 'fulldata': data}
-    return dictInfo
+    def info():
+        now = datetime.now()
+        current_time = now.strftime("%H:%M:%S")
+        current_date = now.strftime('%m/%d/%Y')
+        data = subprocess.check_output(['ipconfig','/all']).decode('utf-8').split('\n')
+        time = ('Time. . . . . . . . . . . . . . . : '+str(current_time))
+        date = ('Date. . . . . . . . . . . . . . . : '+str(current_date))
+        ip = data[17].strip()
+        ip = ip.split('(')[0]
+        hostname = data[3].strip()
+        dictInfo = {'time': time,'date': date,'ip': ip,'hostname': hostname, 'fulldata': data}
+        return dictInfo
 
 
 
