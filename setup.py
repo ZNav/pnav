@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name='Pnav',
-    version='0.1.7',
+    version='0.1.8',
     author='Zander Navratil; Z_Nav',
     description='Package nav.',
     packages=['pnav'],
