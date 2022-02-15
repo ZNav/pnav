@@ -1,7 +1,6 @@
 #contains my classes for my pip
 from datetime import date
 import time
-import tkinter
 from win10toast import ToastNotifier
 from datetime import datetime
 from tkinter import *
@@ -11,8 +10,56 @@ from datetime import datetime
 import subprocess
 
 class help:
-    def help():
-        print('Hello! Thank you for choosing the Pnav package. Here are a few of the classes and functions you can choose from:\nrandom: contains random functions and projects.\n\tmessyCheck: this takes a input file and checks it for a-z.\n\tinputOwn: Allows you to input your own array separated by spaces and will search for each item instead of a-z.\n\tcheckDate: takes a date written in year/month/day format and returns how far away it is.\n\tisPalindrome: takes a string as a input and returns a boolean on if the string is a palindrome.\n\tinfo: returns information about computer, including time, date, ip address, hostname in a dictionary.\ncandyTimer: uses a gui to get user data and create windows pop-ups or command line notifications so you can ration food to last to a certain time.\n\tsetup: this is what runs the project, it takes no inputs.\nstockScraper: uses beautifulSoup4 to get html data from a webpage and then returns information on a certain stock.\n\tselect: this runs the project and takes no inputs.')
+    def help(function = ''):
+        function.lower()
+        if(function == 'random'):
+            help.random()
+        elif(function == 'messycheck'):
+            help.messyCheck()
+        elif(function == 'inputown'):
+            help.inputOwn()
+        elif(function == 'checkdate'):
+            help.checkDate()
+        elif(function == 'ispalindrome'):
+            help.isPalindrome()
+        elif(function == 'info'):
+            help.info()
+        elif(function == 'timer'):
+            help.timer()
+        elif(function == 'base'):
+            help.base()
+        elif(function == 'candy'):
+            help.candy()
+        elif(function == 'stockscraper'):
+            help.stockscraper()
+        elif(function == 'select'):
+            help.select()
+        else:
+            print('\tHello! Thank you for choosing the Pnav package.\nFor more information on a certain function run pnav.help.functionname or pnav.help.help("functionname")\n\tHere are a few of the classes you can choose from:\nrandom: contains random functions and projects.\n\tmessyCheck\n\tinputOwn\n\tcheckDate\n\tisPalindrome\n\tinfo\ntimer: uses a gui to get user data.\n\tbase\n\tcandy\nstockScraper: uses beautifulSoup4 to get html data from a webpage and then returns information on a certain stock.\n\tselect')
+    
+    def random():
+        print('random: contains random functions and projects.')
+    def messyCheck():
+        print('messyCheck: this takes a input file and checks it for a-z.')
+    def inputOwn():
+        print('inputOwn: Allows you to input your own array separated by spaces and will search for each item instead of a-z, this is purely used in conjunction with messyCheck function to search files and arrays.')
+    def checkDate():
+        print('checkDate: takes a date written in year/month/day format and returns how far away it is.')
+    def isPalindrome():
+        print('isPalindrome: takes a string as a input and returns a boolean on if the string is a palindrome.')
+    def info():
+        print('info: returns information about computer, including time, date, ip address, hostname in a dictionary.')
+    def timer():
+        print('timer: uses a gui to get user data.')
+    def base():
+        print('base: allows you to create a custom gui and either make a timer with pop-ups or return the data for use in other areas.')
+    def candy():
+        print('candy: uses a gui to get user data and create windows pop-ups or command line notifications so you can ration food to last to a certain time.')
+    def stockScraper():
+        print('stockScraper: uses beautifulSoup4 to get html data from a webpage and then returns information on a certain stock.')
+    def select():
+        print('select: this runs the project and takes no inputs.')
+    
 
 class random:
     default = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
@@ -59,22 +106,28 @@ class random:
             i -= 1
         return True
 
-    def info():
+    def info(valuesOnly = False):
         now = datetime.now()
         current_time = now.strftime("%H:%M:%S")
         current_date = now.strftime('%m/%d/%Y')
+        date_chrono = now.strftime('%Y/%m/%d')
         data = subprocess.check_output(['ipconfig','/all']).decode('utf-8').split('\n')
         time = ('Time. . . . . . . . . . . . . . . : '+str(current_time))
         date = ('Date. . . . . . . . . . . . . . . : '+str(current_date))
+        date_chrononice = ('Date Chrono . . . . . . . . . . . : '+str(current_date))
         ip = data[17].strip()
         ip = ip.split('(')[0]
         hostname = data[3].strip()
-        dictInfo = {'time': time,'date': date,'ip': ip,'hostname': hostname, 'fulldata': data}
+        dictInfo = {'time': time,'date': date,'ip': ip,'hostname': hostname,'datechrono': date_chrononice, 'fulldata': data}
+        if(valuesOnly == True):
+            ip = ip.split(':')
+            hostname = hostname.split(':')
+            dictInfo = {'time': current_time,'date': current_date,'ip': ip[-1].strip(),'hostname': hostname[-1].strip(),'datechrono': date_chrono, 'fulldata': data}
         return dictInfo
 
 
 
-class candyTimer():
+class timer():
     c1Var = False 
     def calculateTime(timeToLast):
         if('h' in timeToLast):
@@ -124,7 +177,7 @@ class candyTimer():
 
 
     #main
-    def setup():
+    def candy():
         global runMain
         global calculateTime
         global c1var
@@ -133,17 +186,17 @@ class candyTimer():
         def guiGet():
             time = e1.get()
             pieces = e2.get()
-            if(candyTimer.c1Var == False):
+            if(timer.c1Var == False):
                 master.destroy()
-            candyTimer.runMain(str(candyTimer.calculateTime(time)),str(pieces), candyTimer.c1Var)
+            timer.runMain(str(timer.calculateTime(time)),str(pieces), timer.c1Var)
         def guiGetEnter(e):
             time = e1.get()
             pieces = e2.get()
-            if(candyTimer.c1Var == False):
+            if(timer.c1Var == False):
                 master.destroy()
-            candyTimer.runMain(str(candyTimer.calculateTime(time)),str(pieces), candyTimer.c1Var)
+            timer.runMain(str(timer.calculateTime(time)),str(pieces), timer.c1Var)
         def toggleVal():
-            candyTimer.c1Var = not candyTimer.c1Var
+            timer.c1Var = not timer.c1Var
         Label(master, text='Time to last:\n45s = 45 seconds, 20m or 20 = 20 minutes 1.5h = 1:30 minutes:').grid(row=0, columnspan=2)
         Label(master, text='Amount of Candy:').grid(row=1, columnspan=2)
         Label(master, text='Disable Windows Pop-Ups?').grid(row=2, column=0)
@@ -160,6 +213,71 @@ class candyTimer():
         master.bind('<Return>',guiGetEnter)
         e1.focus()
         master.mainloop()
+
+    def base(title = 'Timer', label1text = 'Time to last:\n45s = 45 seconds, 20m or 20 = 20 minutes 1.5h = 1:30 minutes:', row1 = True, label2text = 'Alert amounts', row2 = True,checkboxtext= 'Disable Windows Pop-Ups?', checkbox = True, enterbuttontext = 'Enter', exitbuttontext = 'Exit', returnOnly = True):
+        global c1var
+        master = Tk()
+        master.title(title)
+        def guiGet():
+            value =[]
+            if(row1 == True):
+                row1val = e1.get()
+                value.append(row1val)
+            if(row2 == True):
+                row2val = e2.get()
+                value.append(row2val)
+            if(checkbox == True):
+               value.append(timer.c1Var)
+            master.destroy()
+            if(returnOnly == False):
+                timer.runMain(str(timer.calculateTime(row1val)),str(row2val), timer.c1Var)
+            else:
+                timer.c1Var = value
+        def guiGetEnter(e):
+            value =[]
+            if(row1 == True):
+                row1val = e1.get()
+                value.append(row1val)
+            if(row2 == True):
+                row2val = e2.get()
+                value.append(row2val)
+            if(checkbox == True):
+               value.append(timer.c1Var)
+            master.destroy()
+            if(returnOnly == False):
+                timer.runMain(str(timer.calculateTime(row1val)),str(row2val), timer.c1Var)
+            else:
+                timer.c1Var = value
+        def toggleVal():
+            timer.c1Var = not timer.c1Var
+        if(row1 == True):
+            Label(master, text= label1text).grid(row=0, columnspan=2)
+        if(row2 == True):
+            Label(master, text=label2text).grid(row=1, columnspan=2)
+        if(checkbox == True):
+            Label(master, text=checkboxtext).grid(row=2, column=0)
+        if(row1 == True):
+            e1 = Entry(master)
+        if(row2 == True):
+            e2 = Entry(master)
+        b1 = Button(master, text=enterbuttontext, command = guiGet)
+        b2 = Button(master, text=exitbuttontext, command = master.destroy)
+        if(checkbox == True):
+            c1 = Checkbutton(master, command= toggleVal)
+        if(row1 == True):
+            e1.grid(row=0, column=2, columnspan=2)
+        if(row2 == True):
+            e2.grid(row=1, column=2, columnspan=2)
+        if(checkbox == True):
+            c1.grid(row=2, column=1)
+        b1.grid(row=2, column=2)
+        b2.grid(row=2, column=3)
+        master.bind('<Return>',guiGetEnter)
+        if(row1 == True):
+            e1.focus()
+        master.mainloop()
+        if(returnOnly == True):
+            return timer.c1Var
 
 link = 'HELP'
 url = 'https://robinhood.com/stocks/'
