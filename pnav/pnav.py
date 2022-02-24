@@ -284,7 +284,7 @@ url = 'https://robinhood.com/stocks/'
 class stockScraper():
     def select():
         global link
-        link = input('Input the stock ticker symbol or cmd for a list of commands: ').upper()
+        link = input('Input the stock ticker symbol or "cmd" for a list of relevant commands and options: ').upper()
         print(link)
         if(link == 'HELP'):
             print('Help: use a browser to see a stocks ticker symbol, for instance AAPL for Apple. Do list in input field to see list of stock ticker symbols.')
