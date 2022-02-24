@@ -1,4 +1,4 @@
-# pnav a python package
+# pnav; a python package
 ## by Zander
 
 hello! thank you for choosing the pnav package.
