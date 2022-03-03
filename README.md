@@ -107,7 +107,40 @@ this will soon likely be archived and depreciated, at this time I do not see a n
         
 this is the only function that needs called, it will take user input from the console and display related stock information.
 
+#### pcs. used to setup a makeshift server and communicate between multiple computers.
+needs called on both server and client side to open communication between the two, very useful for running commands on others machines.
 
+        pnav.pcs.server()
+
+this is the basic server side command and has optional arguments for customization and improved usability, they are:
+        
+        host: string
+                the hostname / ip address.
+        port: int
+                the port you will be opening.
+        actions: dict
+                a dictionary of possible actions to take.
+        serverMessage: string
+                the message that prints to let the user know it is starting, you can also input a empty string to print nothing.
+        waitTime: int
+                the time it waits between checking for new requests.
+        connectionString: string
+                prints when there is a client side connection to the server, you can also input a empty string to print nothing.
+
+there are many options to play around with and more to come.
+
+        pnav.pcs.client(host)
+
+this is for connecting to a pnav.pcs server, it requires a host name and usually a port as well unless both ports are the default '12345', this also has a very customizable framework with quite a few optional parameters, they are: 
+
+        host: string
+                the ip address of the server you are trying to connect to.
+        port: int
+                the port you are connecting to.
+        inputStyle: string
+                the style of the cli input: 
+        connectionMessage: string
+                the message that displays when you successfully connect to the server.
 
 check out my github at https://github.com/ZNav
 
