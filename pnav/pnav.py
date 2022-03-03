@@ -8,6 +8,8 @@ from bs4 import BeautifulSoup
 import requests
 from datetime import datetime
 import subprocess
+import socket
+import os
 
 class help:
     def help(function = ''):
@@ -309,3 +311,45 @@ class stockScraper():
         value = (value['aria-label'])
         priceChanges = soup.find(id="sdp-price-chart-price-change").findAll('span')[0].text
         print('Current stock price of '+link+': '+str(value)+'\nTotal change today: '+priceChanges)
+
+class pcs():
+    serverSideActions = {
+        'nudge': lambda: os.system('nudge.vbs'),
+        'kill': lambda:  os.system('shutdown -s'),
+        'warn': lambda:  os.system('nudge.vbs'),
+    }
+
+    def server(host = lambda: socket.gethostname(), port = 12345, actions = serverSideActions, serverMessage = 'Server started!\nWaiting for clients...', waitTime = 1, connectionString = 'Got connection!'):
+        s = socket.socket()
+
+        print(serverMessage)
+
+        s.bind((host, port))
+        s.listen(waitTime)
+        c, addr = s.accept()
+        print(connectionString)
+        while True:
+            msg = c.recv(1024)
+            print (str(addr)+' >> '+str(msg))
+            for i in actions:
+                if i == msg:
+                    actions[msg]()
+
+    def client(host, port = 12345, inputStyle = 'CLIENT >> ', connectionMessage = "Connecting to SERVER machine"):
+        s = socket.socket()                     
+        loop = True
+
+        print(connectionMessage)
+        s.connect((host, port))
+
+        while loop == True:
+            msg = input(inputStyle)
+            if msg == 'exit':
+                loop = False
+                s.close
+            elif msg == 'style':
+                inputStyle = input('enter new terminal name >> ')
+            else:
+                print('help >> the commands I know are exit, style\nexit >> this closes the connection with the server, if you exit without doing this you will not allow the server to make any additional connections until restarted\nstyle >> allows you to change the style of input in the cli')
+            rawdata = bytes(msg, 'utf-8')
+            s.send(rawdata)
