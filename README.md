@@ -112,7 +112,7 @@ needs called on both server and client side to open communication between the tw
 
         pnav.pcs.server()
 
-this is the basic server side command and has optional arguments for customization and improved usability, they are:
+this is the basic server side command and has many optional arguments for customization and improved usability, they are:
         
         host: string
                 the hostname / ip address.
