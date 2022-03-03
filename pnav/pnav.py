@@ -319,24 +319,25 @@ class pcs():
         'warn': lambda:  os.system('nudge.vbs'),
     }
 
-    def server(host = lambda: socket.gethostname(), port = 12345, actions = serverSideActions, serverMessage = 'Server started!\nWaiting for clients...', waitTime = 1, connectionString = 'Got connection!'):
+    def server(host = socket.gethostname(), port = 12345, actions = serverSideActions, serverMessage = 'Server started!\nWaiting for clients...', waitTime = 1, connectionString = 'Got connection!'):
         s = socket.socket()
 
-        print(serverMessage)
+        if serverMessage != '':
+            print(serverMessage)
 
         s.bind((host, port))
         s.listen(waitTime)
         c, addr = s.accept()
-        print(connectionString)
+        if connectionString != '':
+            print(connectionString)
         while True:
             msg = c.recv(1024)
             print (str(addr)+' >> '+str(msg))
-            for i in actions:
-                if i == msg:
-                    actions[msg]()
+            if msg in actions:
+                actions[msg]()
 
     def client(host, port = 12345, inputStyle = 'CLIENT >> ', connectionMessage = "Connecting to SERVER machine"):
-        s = socket.socket()                     
+        s = socket.socket()
         loop = True
 
         print(connectionMessage)
@@ -349,7 +350,7 @@ class pcs():
                 s.close
             elif msg == 'style':
                 inputStyle = input('enter new terminal name >> ')
-            else:
+            elif msg == 'help':
                 print('help >> the commands I know are exit, style\nexit >> this closes the connection with the server, if you exit without doing this you will not allow the server to make any additional connections until restarted\nstyle >> allows you to change the style of input in the cli')
             rawdata = bytes(msg, 'utf-8')
             s.send(rawdata)
